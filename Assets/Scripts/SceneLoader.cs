@@ -15,7 +15,7 @@ public class SceneLoader : NetworkBehaviour
 
         if (NetworkManager.Singleton.ConnectedClients.Count == 2 && IsHost)
         {
-            StartCoroutine(LoadSceneRoutine());
+            //StartCoroutine(LoadSceneRoutine());
         }
     }
 

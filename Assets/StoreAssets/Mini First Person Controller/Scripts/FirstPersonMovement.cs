@@ -4,6 +4,7 @@ using UnityEngine;
 public class FirstPersonMovement : MonoBehaviour
 {
     public float speed = 5;
+    [SerializeField] private NetworkedCharacterAnimation m_CharacterAnimation;
 
     [Header("Running")]
     public bool canRun = true;
@@ -40,5 +41,11 @@ public class FirstPersonMovement : MonoBehaviour
 
         // Apply movement.
         rigidbody.linearVelocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.linearVelocity.y, targetVelocity.y);
+        m_CharacterAnimation.LinearVelocity.Value = rigidbody.linearVelocity;
+    }
+
+    public Vector3 GetLinearVelocity()
+    {
+        return rigidbody.linearVelocity;
     }
 }
