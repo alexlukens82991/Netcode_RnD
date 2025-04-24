@@ -10,7 +10,7 @@ namespace MimicSpace
     /// This is a very basic movement script, if you want to replace it
     /// Just don't forget to update the Mimic's velocity vector with a Vector3(x, 0, z)
     /// </summary>
-    public class Movement : MonoBehaviour
+    public class Movement : NetworkBehaviour
     {
         [SerializeField] private NavMeshAgent m_NavMeshAgent;
 
@@ -28,6 +28,17 @@ namespace MimicSpace
         private void Start()
         {
             myMimic = GetComponent<Mimic>();
+
+            
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            if (!IsHost)
+                return;
+
+            print("IsHost: " + IsHost);
+            print("IsServer: " + IsServer);
 
             StartCoroutine(FindTargetRoutine());
         }
@@ -59,9 +70,11 @@ namespace MimicSpace
 
             do
             {
-                m_NavMeshAgent.SetDestination(m_CurrentTarget.position);
+                if (m_CurrentTarget != null)
+                    m_NavMeshAgent.SetDestination(m_CurrentTarget.position);
+
                 yield return new WaitForSeconds(1f);
-            } while (m_CurrentTarget != null);
+            } while (true);
         }
 
         private IEnumerator FindClosestTargetRoutine()
