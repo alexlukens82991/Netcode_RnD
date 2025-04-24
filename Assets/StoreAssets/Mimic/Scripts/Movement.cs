@@ -55,13 +55,22 @@ namespace MimicSpace
         {
             yield return new WaitUntil(() => NetworkManager.Singleton.ConnectedClients.Count > 0);
 
-            m_CurrentTarget = PlayerTracker.Instance.GetClosestPlayer(transform.position);
+            StartCoroutine(FindClosestTargetRoutine());
 
             do
             {
                 m_NavMeshAgent.SetDestination(m_CurrentTarget.position);
                 yield return new WaitForSeconds(1f);
             } while (m_CurrentTarget != null);
+        }
+
+        private IEnumerator FindClosestTargetRoutine()
+        {
+            do
+            {
+                m_CurrentTarget = PlayerTracker.Instance.GetClosestPlayer(transform.position);
+                yield return new WaitForSeconds(2f);
+            } while (true);
         }
     }
 

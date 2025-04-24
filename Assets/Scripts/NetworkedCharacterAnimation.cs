@@ -13,8 +13,6 @@ public class NetworkedCharacterAnimation : NetworkBehaviour
         m_Animator.SetFloat("X", LinearVelocity.Value.x);
         m_Animator.SetFloat("Y", LinearVelocity.Value.y);
 
-        print(LinearVelocity.Value);
-
         Debug_LinearVelo = LinearVelocity.Value;
     }
 }

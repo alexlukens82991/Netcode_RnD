@@ -43,9 +43,4 @@ public class FirstPersonMovement : MonoBehaviour
         rigidbody.linearVelocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.linearVelocity.y, targetVelocity.y);
         m_CharacterAnimation.LinearVelocity.Value = rigidbody.linearVelocity;
     }
-
-    public Vector3 GetLinearVelocity()
-    {
-        return rigidbody.linearVelocity;
-    }
 }
