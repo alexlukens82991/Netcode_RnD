@@ -7,28 +7,32 @@ public class VideoController : NetworkBehaviour
 {
     [SerializeField] private VideoPlayer m_VideoPlayer;
 
-    private double m_CurrentTime;
+    [SerializeField] private double m_CurrentTime;
+
 
     private void Update()
     {
         m_CurrentTime = m_VideoPlayer.time;
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Everyone)]
     public void PlayRpc()
     {
         m_VideoPlayer.time = m_CurrentTime;
         m_VideoPlayer.Play();
+        print("Video play!");
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Everyone)]
     public void PauseRpc()
     {
         m_VideoPlayer.Pause();
+        print("Video pause!");
+
         m_VideoPlayer.time = m_CurrentTime;
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Everyone)]
     public void UpdateTimeRpc(double changeInTime)
     {
         m_VideoPlayer.time += changeInTime;
